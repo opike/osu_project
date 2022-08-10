@@ -220,7 +220,10 @@ class LudoGame:
             if current_pos + steps_to_move == 57:
                 player.set_token_step_count(token_name, 57)
             elif current_pos + steps_to_move > 57:
-                print('Exceeded 57, noop')
+                # handle bouncing
+                print(f"Token {player.get_position()}{token_name} bounced")
+                player.set_token_step_count(token_name,
+                        114 - (current_pos + steps_to_move))
             else:
                 player.set_token_step_count(token_name,
                                             current_pos + steps_to_move)
