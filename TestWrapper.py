@@ -10,6 +10,11 @@ def main():  # pylint: disable=R0912
     # print("something")
     ludo_game = LudoGame()
 
+    players = ['A', 'B']
+    turns = [('A', 6), ('A', 4), ('A', 5), ('A', 4), ('B', 6), ('B', 4),
+             ('B', 1), ('B', 2), ('A', 6), ('A', 4), ('A', 6), ('A', 3),
+             ('A', 5), ('A', 1), ('A', 5), ('A', 4)]
+
     # [('A', 6), ('A', 4), ('A', 5), ('A', 4), ('B', 6), ('B', 4), ('B', 1),
     #  ('B', 2), ('A', 6), ('A', 4), ('A', 6), ('A', 3), ('A', 5), ('A', 1),
     #  ('A', 5), ('A', 4)]
@@ -18,6 +23,12 @@ def main():  # pylint: disable=R0912
     #                   ('B', 4),
     #          ('B', 1), ('B', 2), ('A', 6), ('A', 4), ('A', 6), ('A', 3),
     #          ('A', 5), ('A', 1), ('A', 5), ('A', 4)]
+
+    # moves = [('A', 6), ('A', 4), ('A', 5), ('A', 4), ('B', 6), ('B', 4),
+    #          ('B', 1), ('B', 2), ('A', 6), ('A', 4), ('A', 6), ('A', 3),
+    #          ('A', 5), ('A', 1), ('A', 5), ('A', 4), ('A', 2), ('A', 6),
+    #          ('A', 6), ('A', 2)]
+
 
     moves = [('A', 6), ('A', 4), ('A', 5), ('A', 4), ('B', 6), ('B', 4),
              ('B', 1), ('B', 2), ('A', 6), ('A', 4), ('A', 6), ('A', 3),
@@ -63,5 +74,23 @@ def main():  # pylint: disable=R0912
     # GeneralUtils.run_tasks(args, tasks)
 
 
+def main2():
+    players = ['A', 'B']
+    turns = [('A', 6), ('A', 4), ('A', 5), ('A', 4), ('B', 6),
+                      ('B', 4),
+             ('B', 1), ('B', 2), ('A', 6), ('A', 4), ('A', 6), ('A', 3),
+             ('A', 5), ('A', 1), ('A', 5), ('A', 4)]
+
+    game = LudoGame()
+    current_tokens_space = game.play_game(players, turns)
+    player_A = game.get_player_by_position('A')
+    print(player_A.get_completed())
+    print(player_A.get_token_p_step_count())
+    print(current_tokens_space)
+    player_B = game.get_player_by_position('B')
+    print(player_B.get_space_name(55))
+
+
+
 if __name__ == "__main__":
-    main()
+    main2()
