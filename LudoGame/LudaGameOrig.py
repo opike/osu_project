@@ -7,7 +7,7 @@ ready_to_go = ('R', 0)
 end_square = ('E', 57)
 
 
-debug = True
+debug = False
 
 # Definition of terms
 # POSITION: A,B,C, etc.
@@ -22,7 +22,7 @@ class Player:
     __post_ready_to_go_step_count = None
 
 
-    def __init__(self, position_param, position_index):
+    def __init__(self, position_param):
         """The method of the Player class. Takes no parameters. Initializes the required data members.\
         All data members are private."""
         self.__position = position_param
@@ -33,13 +33,13 @@ class Player:
 
         # if debug: print(ord(self.__position) - 65)
         self.__pre_home_square_step_count =\
-            pre_home_squares_values[position_index]
+            pre_home_squares_values[ord(self.__position) - 65]
 
         if debug: print('here 302')
         self.print_locations()
 
         self.__post_ready_to_go_step_count =\
-            post_ready_to_go_values[position_index]
+            post_ready_to_go_values[ord(self.__position) - 65]
 
         if debug: print('here 303')
         self.print_locations()
@@ -172,8 +172,8 @@ class LudoGame:
 
     def get_opponent_on_location(self, location, current_player):
         """to determine if there is a player on a space"""
-        if location > 56 or location < 1:
-            return 'not pertinent'
+        if location > 50 or location < 1:
+            return None
 
         for player in self.__board:
             # Don't check the current player
@@ -365,7 +365,7 @@ class LudoGame:
             print('here 104')
             if debug: print(position)
             print(index)
-            tmp_player = Player(position, index)
+            tmp_player = Player(position)
             self.__board.append(tmp_player)
             if debug: print('400')
             self.print_player_locations()
