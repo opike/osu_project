@@ -49,8 +49,10 @@ class LudoGame:
     """ Constructs the game being played """
 
     __player_list = None
-    __board = []
+    __board = None
 
+    def __init__(self):
+        self.__board = []
 
 
     def print_player_locations(self):
@@ -103,10 +105,10 @@ class LudoGame:
             position = player_list[count]
             print('Instantiating player')
             tmp_player = Player(position)
-            print(len(self.__board))
+            print(f'number of players: {len(self.__board)}')
             self.__board.append(tmp_player)
+            print(f'number of players: {len(self.__board)}')
             if debug: print('here 400')
-            print(len(self.__board))
             self.print_player_locations()
             count += 1
             print(f'incremented count to {count}')
