@@ -318,11 +318,11 @@ class LudoGame:
 
 
         # Move the furthest away token that is not in the home yard.
-        if -1 < token_p_loc < 51:
+        if -1 < token_p_loc < 57:
             if token_p_loc <= token_q_loc or token_q_loc == -1:
                 return 'P'
 
-        if -1 < token_q_loc < 51:
+        if -1 < token_q_loc < 57:
             if token_q_loc < token_p_loc or token_p_loc == -1:
                 return 'Q'
 
