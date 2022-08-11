@@ -146,11 +146,9 @@ class LudoGame:
         # print(self.__board)
 
     def print_player_locations(self):
-        if debug: print('A:')
-        self.__board[0].print_locations()
-        if debug: print('B:')
-        self.__board[1].print_locations()
-
+        for player in self.__board:
+            if debug: print(player.get_position() + ':')
+            player.print_locations()
 
     def get_player_by_position(self, position):
         if debug: print(f'in get_player_by_position')
@@ -325,8 +323,9 @@ class LudoGame:
 
         # Initialize the board
         for position in player_list:
-            # tmp_player = Player(position)
-            self.__board.append(Player(position))
+            if debug: print(position)
+            tmp_player = Player(position)
+            self.__board.append(tmp_player)
             if debug: print('400')
             self.print_player_locations()
 
