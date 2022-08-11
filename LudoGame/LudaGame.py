@@ -1,17 +1,9 @@
-# Definition of terms
-# POSITION: A,B,C, etc.
-# LOCATION: -1, 0, 1-57
-# STEPS: # of steps to adjust a location
-
 class Player:
     """The constructor of the player playing the Ludo Game"""
     __position = None
     __tokens = None
     __pre_home_square_step_count = None
     __post_ready_to_go_step_count = None
-
-
-
 
     def __init__(self, position_param):
         """The method of the Player class. Takes no parameters. Initializes the required data members.\
@@ -100,8 +92,6 @@ class LudoGame:
         if debug: print(turn_list[0][0])
         print('here 101')
         if debug: print(turn_list[0][1])
-
-
 
         for position in player_list:
             if debug: print(position)
