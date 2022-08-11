@@ -43,12 +43,14 @@ class Player:
         return self.__position
 
     def set_token_step_count(self, token, step_count):
+        if debug: print(f'in set_token_step_count')
         if token == 'P':
             self.__tokens[0][1] = step_count
         else:
             self.__tokens[1][1] = step_count
 
     def get_completed(self):
+        if debug: print(f'in get_completed')
         for token in self.__tokens:
             if token[1] != end_square[1]:
                 return False
@@ -64,12 +66,14 @@ class Player:
 
     def get_token_p_step_count(self):
         """ to get value of self.___step_count_of_token_p outside its class"""
+        if debug: print(f'in get_token_p_step_count')
         return self.__tokens[0][1]
 
         # return of self.___step_count_of_token_p
 
     def get_token_q_step_count(self):
         """ to get value of self._step_count_of_token_q outside its class"""
+        if debug: print(f'in get_token_q_step_count')
         return self.__tokens[1][1]
 
 
@@ -86,6 +90,8 @@ class Player:
 
     def get_space_name(self, token_steps):
         """ determine the location of a token"""
+        if debug: print(f'in get_space_name')
+
         if token_steps == home_yard[1]:
             return home_yard[0]
         elif token_steps == ready_to_go[1]:
