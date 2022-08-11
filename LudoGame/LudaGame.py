@@ -37,6 +37,7 @@ class Player:
 
 
     def print_locations(self):
+        print('in print_locations')
         debug = True
         if debug: print(f"  P: {self.__tokens[0][1]}")
         if debug: print(f"  Q: {self.__tokens[1][1]}")
@@ -100,12 +101,15 @@ class LudoGame:
         count = 0
         while count < len(player_list):
             position = player_list[count]
-            if debug: print(position)
+            print('Instantiating player')
             tmp_player = Player(position)
+            print(len(self.__board))
             self.__board.append(tmp_player)
             if debug: print('here 400')
+            print(len(self.__board))
             self.print_player_locations()
             count += 1
+            print(f'incremented count to {count}')
 
 
 
