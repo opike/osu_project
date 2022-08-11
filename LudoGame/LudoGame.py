@@ -316,6 +316,11 @@ class LudoGame:
         if debug: print(type(turn_list[0]))
 
 
+        if debug: print(player_list[0])
+        if debug: print(turn_list[0][0])
+        if debug: print(turn_list[0][1])
+
+
 
         # six_count = 0
         # previous_position = None
