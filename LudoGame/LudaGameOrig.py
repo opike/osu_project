@@ -7,7 +7,7 @@ ready_to_go = ('R', 0)
 end_square = ('E', 57)
 
 
-debug = True
+debug = False
 
 # Definition of terms
 # POSITION: A,B,C, etc.
@@ -292,7 +292,7 @@ class LudoGame:
 
         # Move the furthest away token that is not in the home yard.
         if -1 < token_p_loc < 51:
-            if token_p_loc < token_q_loc or token_q_loc == -1:
+            if token_p_loc <= token_q_loc or token_q_loc == -1:
                 return 'P'
 
         if -1 < token_q_loc < 51:
