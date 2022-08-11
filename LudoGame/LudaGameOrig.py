@@ -7,7 +7,7 @@ ready_to_go = ('R', 0)
 end_square = ('E', 57)
 
 
-debug = False
+debug = True
 
 # Definition of terms
 # POSITION: A,B,C, etc.
@@ -89,12 +89,19 @@ class Player:
 
 
     def is_any_token_on_space(self, space):
-        ret_val = False
+        print('here 900')
+        # tmp_space = self.get_space_name(space)
+        print(space)
+        # print(tmp_space)
+        print(self.get_space_name(self.get_token_p_step_count()))
+        print(self.get_space_name(self.get_token_q_step_count()))
         if self.get_space_name(self.get_token_p_step_count()) == space:
+            print('here 901')
             return True
         if self.get_space_name(self.get_token_q_step_count()) == space:
+            print('here 902')
             return True
-        return ret_val
+        return False
 
 
         # return of self._step_count_of_token_q
@@ -160,13 +167,19 @@ class LudoGame:
         return 'Player not found!'
 
 
-    def get_player_on_location(self, location):
+    def get_opponent_on_location(self, location, current_player):
         """to determine if there is a player on a space"""
         if location > 56 or location < 1:
             return 'not pertinent'
 
         for player in self.__board:
-            if player.is_any_token_on_space(location):
+            # Don't check the current player
+            if player.get_position() == current_player.get_position():
+                continue
+            print (f'checking player: {player.get_position()}')
+            print(location)
+            if player.is_any_token_on_space(current_player.get_space_name(location)):
+                print('here 2000')
                 return player
 
         # No player on that location
@@ -230,12 +243,17 @@ class LudoGame:
                 player.set_token_step_count(token_name,
                                             projected_location)
         else:
-            opponent = self.get_player_on_location(current_pos + steps_to_move)
+            opponent =\
+                self.get_opponent_on_location(current_pos + steps_to_move, player)
             if opponent is not None:
                 # handle kicking out
-                if opponent.get_token_p_step_count() == projected_location:
+                print('here 4000')
+                if opponent.get_space_name(opponent.get_token_p_step_count())\
+                        == player.get_space_name(projected_location):
                     opponent.set_token_step_count("P", -1)
-                else:
+                if opponent.get_space_name(
+                            opponent.get_token_q_step_count()) \
+                            == player.get_space_name(projected_location):
                     opponent.set_token_step_count("Q", -1)
             player.set_token_step_count(token_name, current_pos + steps_to_move)
 
@@ -275,18 +293,27 @@ class LudoGame:
         elif token_q_loc + steps == 57:
             return 'Q'
 
+        print('here 700')
+        print(token_q_loc + steps)
+        print('here 700.5')
+        # tmp_val = self.get_opponent_on_location(token_q_loc + steps)
+        print('here 700.7')
+        # if tmp_val is not None:
+        #     print(tmp_val.get_position())
+        # if self.get_opponent_on_location(token_q_loc + steps) is not None:
+        #     print('here 701')
+        #     print(self.get_opponent_on_location(token_q_loc + steps).get_position())
+        #     print(player.get_position())
+
         # Check for kick out opponent
         if (((token_p_loc + steps > 0) and (token_p_loc + steps < 51)) and
-            (self.get_player_on_location(token_p_loc + steps) is not None) and
-            (self.get_player_on_location(token_p_loc + steps).get_position() !=
-             player.get_position())):
+            (self.get_opponent_on_location(token_p_loc + steps, player) is not None)):
+            print('here 1001')
             return 'P'
         elif (((token_q_loc + steps > 0) and (token_q_loc + steps < 51)) and
-              (self.get_player_on_location(
-                  token_q_loc + steps) is not None) and
-              (self.get_player_on_location(
-                    token_q_loc + steps).get_position() !=
-                 player.get_position())):
+              (self.get_opponent_on_location(
+                  token_q_loc + steps, player) is not None)):
+            print('here 1002')
             return 'Q'
 
 
