@@ -27,7 +27,11 @@ class Player:
         All data members are private."""
         self.__position = position_param
         self.__tokens = [['P', home_yard[1]], ['Q', home_yard[1]]]
-        if debug: print(ord(self.__position) - 65)
+
+        if debug: print('here 300')
+        self.print_locations()
+
+        # if debug: print(ord(self.__position) - 65)
         self.__pre_home_square_step_count =\
             pre_home_squares_values[ord(self.__position) - 65]
         self.__post_ready_to_go_step_count =\
