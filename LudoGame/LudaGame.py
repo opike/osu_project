@@ -1,3 +1,5 @@
+import sys
+
 class Player:
     """The constructor of the player playing the Ludo Game"""
     __position = None
@@ -75,6 +77,8 @@ class LudoGame:
           piece for the player should be moved"""
 
         debug = True
+
+        print(f'version: {sys.version}')
 
         if debug: print(player_list)
         if debug: print(turn_list)
