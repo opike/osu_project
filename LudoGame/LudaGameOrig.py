@@ -7,7 +7,7 @@ ready_to_go = ('R', 0)
 end_square = ('E', 57)
 
 
-debug = False
+debug = True
 
 # Definition of terms
 # POSITION: A,B,C, etc.
@@ -22,7 +22,7 @@ class Player:
     __post_ready_to_go_step_count = None
 
 
-    def __init__(self, position_param):
+    def __init__(self, position_param, position_index):
         """The method of the Player class. Takes no parameters. Initializes the required data members.\
         All data members are private."""
         self.__position = position_param
@@ -33,13 +33,13 @@ class Player:
 
         # if debug: print(ord(self.__position) - 65)
         self.__pre_home_square_step_count =\
-            pre_home_squares_values[ord(self.__position) - 65]
+            pre_home_squares_values[position_index]
 
         if debug: print('here 302')
         self.print_locations()
 
         self.__post_ready_to_go_step_count =\
-            post_ready_to_go_values[ord(self.__position) - 65]
+            post_ready_to_go_values[position_index]
 
         if debug: print('here 303')
         self.print_locations()
@@ -161,6 +161,9 @@ class LudoGame:
     def get_player_by_position(self, position):
         # if debug: print(f'in get_player_by_position')
         for player in self.__board:
+            print('here 5000')
+            print(player.get_position())
+            print(position)
             if player.get_position() == position:
                 return player
 
@@ -185,10 +188,10 @@ class LudoGame:
         # No player on that location
         return None
 
-    def get_locations_by_player(self, player_position):
-        for player, locations in self.__board:
-            if player == player_position:
-                return locations
+    # def get_player_by_position(self, player_position):
+    #     for player in self.__board:
+    #         if player == player_position:
+    #             return player
 
     def is_game_done(self):
         # Check that there's only one player left
@@ -201,6 +204,7 @@ class LudoGame:
                 winner_count += 1
 
         return len(self.__board) - 1 == winner_count
+
 
     def move_token(self, player, token_name, steps_to_move):
         """moves one token on the board, updates the total steps,
@@ -357,9 +361,11 @@ class LudoGame:
         # previous_position = None
 
         # Initialize the board
-        for position in player_list:
+        for index, position in enumerate(player_list):
+            print('here 104')
             if debug: print(position)
-            tmp_player = Player(position)
+            print(index)
+            tmp_player = Player(position, index)
             self.__board.append(tmp_player)
             if debug: print('400')
             self.print_player_locations()
@@ -372,7 +378,8 @@ class LudoGame:
         for turn in turn_list:
             if debug: print(f"Processing move #{move_count}")
 
-            current_player = self.__board[ord(turn[0]) - 65]
+            # current_player = self.__board[ord(turn[0]) - 65]
+            current_player = self.get_player_by_position(turn[0])
             die_roll = turn[1]
 
             if debug: print(f"Player {current_player.get_position()} rolls {die_roll}")

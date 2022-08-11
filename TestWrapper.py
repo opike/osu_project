@@ -78,7 +78,7 @@ def main():  # pylint: disable=R0912
 
 
 def main2():
-    players = ['A', 'B', 'C', 'D']
+    players = ['A', 'D']
     # turns = [('A', 6), ('A', 4), ('A', 5), ('A', 4), ('B', 6),
     #                   ('B', 4),
     #          ('B', 1), ('B', 2), ('A', 6), ('A', 4), ('A', 6), ('A', 3),
@@ -94,7 +94,7 @@ def main2():
     #          ('A', 4), ('A', 5), ('A', 5)]
 
 
-    turns = [('A', 6), ('A', 4),('B', 6), ('B', 4),('C', 6), ('C', 4),('D', 6), ('D', 4)]
+    turns = [('A', 6), ('A', 4),('D', 6), ('D', 4)]
 
 
 
@@ -104,8 +104,8 @@ def main2():
     print(player_A.get_completed())
     print(player_A.get_token_p_step_count())
     print(current_tokens_space)
-    player_B = game.get_player_by_position('B')
-    print(player_B.get_space_name(55))
+    player_D = game.get_player_by_position('D')
+    print(player_D.get_space_name(55))
 
 
 
