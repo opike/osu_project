@@ -122,13 +122,14 @@ class LudoGame:
     """ Constructs the game being played """
 
     __player_list = None
-    __board = []
+    __board = None
 
     # __positions = ['A', 'B']
 
     # __six_count = 0
 
     def __init__(self):
+        self.__board = []
         """The constructor of the LudoGame class. Takes no parameters. Initializes the required data members.\
         All data members are private."""
 
