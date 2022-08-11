@@ -97,9 +97,21 @@ class LudoGame:
         print('here 101')
         if debug: print(turn_list[0][1])
 
-        for position in player_list:
+        count = 0
+        while count < len(player_list):
+            position = player_list[count]
             if debug: print(position)
             tmp_player = Player(position)
             self.__board.append(tmp_player)
-            if debug: print('400')
+            if debug: print('here 400')
             self.print_player_locations()
+            count += 1
+
+
+
+        # for position in player_list:
+        #     if debug: print(position)
+        #     tmp_player = Player(position)
+        #     self.__board.append(tmp_player)
+        #     if debug: print('here 400')
+        #     self.print_player_locations()
