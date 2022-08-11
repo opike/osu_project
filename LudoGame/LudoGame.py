@@ -313,11 +313,14 @@ class LudoGame:
         if debug: print(type(turn_list))
 
         if debug: print(type(player_list[0]))
+        print('here 99')
         if debug: print(type(turn_list[0]))
+        print('here 100')
 
 
         if debug: print(player_list[0])
         if debug: print(turn_list[0][0])
+        print('here 101')
         if debug: print(turn_list[0][1])
 
 
