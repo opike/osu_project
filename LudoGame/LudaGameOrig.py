@@ -7,7 +7,7 @@ ready_to_go = ('R', 0)
 end_square = ('E', 57)
 
 
-debug = False
+debug = True
 
 # Definition of terms
 # POSITION: A,B,C, etc.
@@ -371,7 +371,8 @@ class LudoGame:
 
         for turn in turn_list:
             if debug: print(f"Processing move #{move_count}")
-            current_player = self.__board[0] if turn[0] == 'A' else self.__board[1]
+
+            current_player = self.__board[ord(turn[0]) - 65]
             die_roll = turn[1]
 
             if debug: print(f"Player {current_player.get_position()} rolls {die_roll}")

@@ -78,7 +78,7 @@ def main():  # pylint: disable=R0912
 
 
 def main2():
-    players = ['A', 'B']
+    players = ['A', 'B', 'C', 'D']
     # turns = [('A', 6), ('A', 4), ('A', 5), ('A', 4), ('B', 6),
     #                   ('B', 4),
     #          ('B', 1), ('B', 2), ('A', 6), ('A', 4), ('A', 6), ('A', 3),
@@ -93,7 +93,10 @@ def main2():
     #          ('A', 4), ('A', 5), ('A', 4), ('A', 4), ('A', 5), ('A', 4), ('A', 1),
     #          ('A', 4), ('A', 5), ('A', 5)]
 
-    turns = []
+
+    turns = [('A', 6), ('A', 4),('B', 6), ('B', 4),('C', 6), ('C', 4),('D', 6), ('D', 4)]
+
+
 
     game = LudoGame()
     current_tokens_space = game.play_game(players, turns)
