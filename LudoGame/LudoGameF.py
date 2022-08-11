@@ -6,6 +6,9 @@ home_yard = ('H', -1)
 ready_to_go = ('R', 0)
 end_square = ('E', 57)
 
+
+debug = False
+
 # Definition of terms
 # POSITION: A,B,C, etc.
 # LOCATION: -1, 0, 1-57
@@ -24,7 +27,7 @@ class Player:
         All data members are private."""
         self.__position = position_param
         self.__tokens = [['P', home_yard[1]], ['Q', home_yard[1]]]
-        print(ord(self.__position) - 65)
+        if debug: print(ord(self.__position) - 65)
         self.__pre_home_square_step_count =\
             pre_home_squares_values[ord(self.__position) - 65]
         self.__post_ready_to_go_step_count =\
@@ -52,8 +55,8 @@ class Player:
         return True
 
     def print_locations(self):
-        print(f"  P: {self.__tokens[0][1]}")
-        print(f"  Q: {self.__tokens[1][1]}")
+        if debug: print(f"  P: {self.__tokens[0][1]}")
+        if debug: print(f"  Q: {self.__tokens[1][1]}")
 
         #to notify when the game will end
 
@@ -122,13 +125,13 @@ class LudoGame:
         #     self.__board.append(tmp_player)
             # counter += 1
 
-        print('here 1')
+        # print('here 1')
         # print(self.__board)
 
     def print_player_locations(self):
-        print('A:')
+        if debug: print('A:')
         self.__board[0].print_locations()
-        print('B:')
+        if debug: print('B:')
         self.__board[1].print_locations()
 
 
@@ -158,27 +161,31 @@ class LudoGame:
                 return locations
 
     def is_game_done(self):
-        print('here 200')
+        # Check that there's only one player left
+        if debug: print('here 200')
+        winner_count = 0
         for player in self.__board:
             # TODO: add token Q
-            if player.get_token_p_step_count() == 57:
-                return True
-        return False
+            if player.get_token_p_step_count() == 57 and \
+                    player.get_token_q_step_count() == 57:
+                winner_count += 1
+
+        return len(self.__board) - 1 == winner_count
 
     def move_token(self, player, token_name, steps_to_move):
         """moves one token on the board, updates the total steps,
          kicks out other opponent's tokens and stacking """
 
         if token_name == 'P':
-            print('here 50')
+            if debug: print('here 50')
             current_pos = player.get_token_p_step_count()
         else:
-            print('here 60')
+            if debug: print('here 60')
             current_pos = player.get_token_q_step_count()
 
         projected_location = current_pos + steps_to_move
 
-        print(f'About to move player {player.get_position()} piece {token_name}'
+        if debug: print(f'About to move player {player.get_position()} piece {token_name}'
               f' steps {steps_to_move}')
 
         # Handle six count first
@@ -186,7 +193,7 @@ class LudoGame:
             if self.__six_count == 2:
                 # Too many sixes
                 self.__six_count = 0
-                print('Too many sizes, noop')
+                if debug: print('Too many sizes, noop')
                 return
             else:
                 self.__six_count += 1
@@ -196,8 +203,8 @@ class LudoGame:
 
         if current_pos == -1 and steps_to_move == 6:
             # Home yard
-            print('here 70')
-            print(token_name)
+            if debug: print('here 70')
+            if debug: print(token_name)
             player.set_token_step_count(token_name, 0)
         # elif current_pos == 0:
         #     # ready to go
@@ -209,7 +216,7 @@ class LudoGame:
                 player.set_token_step_count(token_name, 57)
             elif projected_location > 57:
                 # handle bouncing
-                print(f"Token {player.get_position()}{token_name} bounced")
+                if debug: print(f"Token {player.get_position()}{token_name} bounced")
                 player.set_token_step_count(token_name,
                         114 - projected_location)
             else:
@@ -239,7 +246,7 @@ class LudoGame:
 
     def select_token(self, player, steps):
         # Select the token we want to move
-        print('foo')
+        if debug: print('foo')
         # if anyone is at home
         token_p_loc = player.get_token_p_step_count()
         token_q_loc = player.get_token_q_step_count()
@@ -304,33 +311,33 @@ class LudoGame:
         self.print_player_locations()
 
         for turn in turn_list:
-            print(f"Processing move #{move_count}")
+            if debug: print(f"Processing move #{move_count}")
             current_player = self.__board[0] if turn[0] == 'A' else self.__board[1]
             die_roll = turn[1]
 
-            print(f"Player {current_player.get_position()} rolls {die_roll}")
+            if debug: print(f"Player {current_player.get_position()} rolls {die_roll}")
 
             # for token in player_locations:
-            print('here 10')
+            if debug: print('here 10')
             token = self.select_token(current_player, die_roll)
 
             if token is None:
-                print(f"Player {current_player.get_position()} can't move")
+                if debug: print(f"Player {current_player.get_position()} can't move")
             elif token == 'PQ':
                 self.move_token(current_player, 'P', die_roll)
                 self.move_token(current_player, 'Q', die_roll)
             else:
                 self.move_token(current_player, token, die_roll)
 
-            print('here 20')
+            if debug: print('here 20')
             self.print_player_locations()
             move_count += 1
             if move_count == move_limit:
-                print("Move limit reached")
+                if debug: print("Move limit reached")
                 break
 
             if self.is_game_done():
-                print(f"Game finished."
+                if debug: print(f"Game finished."
                       f" Player {current_player.get_position()} wins.")
 
 
@@ -344,8 +351,8 @@ class LudoGame:
 
         ret_val = []
 
-        print('here 10')
-        print(len(self.__board))
+        if debug: print('here 10')
+        if debug: print(len(self.__board))
 
         for player in self.__board:
             ret_val.append(player.get_space_name(
