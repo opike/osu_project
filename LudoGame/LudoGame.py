@@ -317,6 +317,8 @@ class LudoGame:
         for position in player_list:
             # tmp_player = Player(position)
             self.__board.append(Player(position))
+            if debug: print('400')
+            self.print_player_locations()
 
         move_limit = 100
         move_count = 0
