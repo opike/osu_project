@@ -16,6 +16,7 @@ class Player:
     __position = None
     __tokens = None
     __pre_home_square_step_count = None
+    __post_ready_to_go_step_count = None
 
 
     def __init__(self, position_param):
@@ -26,6 +27,8 @@ class Player:
         print(ord(self.__position) - 65)
         self.__pre_home_square_step_count =\
             pre_home_squares_values[ord(self.__position) - 65]
+        self.__post_ready_to_go_step_count =\
+            post_ready_to_go_values[ord(self.__position) - 65]
         # self.__position = The player start position (A, B, C, or D)
         # Start and end Space of the player (Hardcoded)
         # self.___step_count_of_token_p = -1
@@ -85,13 +88,14 @@ class Player:
         elif token_steps == ready_to_go[1]:
             return ready_to_go[0]
         elif token_steps == end_square[1]:
-            return ready_to_go[0]
-        elif (token_steps > self.__pre_home_square_step_count)\
-                and (token_steps < self.__pre_home_square_step_count + 7):
+            return end_square[0]
+        elif 57 > token_steps > 50:
             return self.__position +\
-                   str(token_steps - self.__pre_home_square_step_count)
+                   str(token_steps-50)
         else:
-            return str(token_steps)
+            tmp_val = token_steps + (self.__post_ready_to_go_step_count - 1)
+            tmp_val = tmp_val if tmp_val < 57 else tmp_val - 56
+            return str(tmp_val)
 
 
 class LudoGame:
@@ -229,15 +233,9 @@ class LudoGame:
             # Are we kicking out an opponent?
 
 
-
-
         # check the potential destination
         # can they move to that spot and what type of spot is it?
-
-
-
         # return Nothing
-
 
     def select_token(self, player, steps):
         # Select the token we want to move
@@ -251,6 +249,11 @@ class LudoGame:
             return 'P'
         elif token_q_loc == -1 and steps == 6:
             return 'Q'
+
+        # Check for stacked tokens
+        if token_p_loc == token_q_loc:
+            if 0 < token_p_loc < 57:
+                return 'PQ'
 
         # Check for enter end game
         if token_p_loc + steps == 57:
@@ -272,12 +275,17 @@ class LudoGame:
                  player.get_position())):
             return 'Q'
 
-        # Move the furthest away token
-        if token_p_loc < token_q_loc:
-            return 'P'
-        else:
-            return 'Q'
 
+        # Move the furthest away token that is not in the home yard.
+        if -1 < token_p_loc < 51:
+            if token_p_loc < token_q_loc or token_q_loc == -1:
+                return 'P'
+
+        if -1 < token_q_loc < 51:
+            if token_q_loc < token_p_loc or token_p_loc == -1:
+                return 'Q'
+
+        return None
 
 
     def play_game(self, player_list, turn_list):
@@ -300,11 +308,20 @@ class LudoGame:
             current_player = self.__board[0] if turn[0] == 'A' else self.__board[1]
             die_roll = turn[1]
 
+            print(f"Player {current_player.get_position()} rolls {die_roll}")
+
             # for token in player_locations:
             print('here 10')
             token = self.select_token(current_player, die_roll)
 
-            self.move_token(current_player, token, die_roll)
+            if token is None:
+                print(f"Player {current_player.get_position()} can't move")
+            elif token == 'PQ':
+                self.move_token(current_player, 'P', die_roll)
+                self.move_token(current_player, 'Q', die_roll)
+            else:
+                self.move_token(current_player, token, die_roll)
+
             print('here 20')
             self.print_player_locations()
             move_count += 1
