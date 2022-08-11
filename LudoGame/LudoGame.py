@@ -300,6 +300,9 @@ class LudoGame:
          Takes the number rolled and decides based on a priority list which
           piece for the player should be moved"""
 
+        if debug: print(player_list)
+        if debug: print(turn_list)
+
         # Initialize the board
         for position in player_list:
             # tmp_player = Player(position)
