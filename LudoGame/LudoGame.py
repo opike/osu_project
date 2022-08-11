@@ -54,14 +54,14 @@ class Player:
         return self.__position
 
     def set_token_step_count(self, token, step_count):
-        if debug: print(f'in set_token_step_count')
+        # if debug: print(f'in set_token_step_count')
         if token == 'P':
             self.__tokens[0][1] = step_count
         else:
             self.__tokens[1][1] = step_count
 
     def get_completed(self):
-        if debug: print(f'in get_completed')
+        # if debug: print(f'in get_completed')
         for token in self.__tokens:
             if token[1] != end_square[1]:
                 return False
@@ -77,14 +77,14 @@ class Player:
 
     def get_token_p_step_count(self):
         """ to get value of self.___step_count_of_token_p outside its class"""
-        if debug: print(f'in get_token_p_step_count')
+        # if debug: print(f'in get_token_p_step_count')
         return self.__tokens[0][1]
 
         # return of self.___step_count_of_token_p
 
     def get_token_q_step_count(self):
         """ to get value of self._step_count_of_token_q outside its class"""
-        if debug: print(f'in get_token_q_step_count')
+        # if debug: print(f'in get_token_q_step_count')
         return self.__tokens[1][1]
 
 
@@ -101,7 +101,7 @@ class Player:
 
     def get_space_name(self, token_steps):
         """ determine the location of a token"""
-        if debug: print(f'in get_space_name')
+        # if debug: print(f'in get_space_name')
 
         if token_steps == home_yard[1]:
             return home_yard[0]
@@ -126,7 +126,7 @@ class LudoGame:
 
     # __positions = ['A', 'B']
 
-    __six_count = 0
+    # __six_count = 0
 
     def __init__(self):
         """The constructor of the LudoGame class. Takes no parameters. Initializes the required data members.\
@@ -151,7 +151,7 @@ class LudoGame:
             player.print_locations()
 
     def get_player_by_position(self, position):
-        if debug: print(f'in get_player_by_position')
+        # if debug: print(f'in get_player_by_position')
         for player in self.__board:
             if player.get_position() == position:
                 return player
@@ -191,7 +191,7 @@ class LudoGame:
     def move_token(self, player, token_name, steps_to_move):
         """moves one token on the board, updates the total steps,
          kicks out other opponent's tokens and stacking """
-        if debug: print(f'in move_token')
+        # if debug: print(f'in move_token')
 
 
         if token_name == 'P':
@@ -205,18 +205,6 @@ class LudoGame:
 
         if debug: print(f'About to move player {player.get_position()} piece {token_name}'
               f' steps {steps_to_move}')
-
-        # Handle six count first
-        if steps_to_move == 6:
-            if self.__six_count == 2:
-                # Too many sixes
-                self.__six_count = 0
-                if debug: print('Too many sizes, noop')
-                return
-            else:
-                self.__six_count += 1
-        else:
-            self.__six_count = 0
 
 
         if current_pos == -1 and steps_to_move == 6:
@@ -321,6 +309,9 @@ class LudoGame:
         if debug: print(player_list)
         if debug: print(turn_list)
 
+        # six_count = 0
+        # previous_position = None
+
         # Initialize the board
         for position in player_list:
             if debug: print(position)
@@ -340,6 +331,16 @@ class LudoGame:
             die_roll = turn[1]
 
             if debug: print(f"Player {current_player.get_position()} rolls {die_roll}")
+
+            # Handle six count first
+            # if previous_position == current_player.get_position():
+            #     if die_roll == 6 && six_count == 2:
+            #
+            # else:
+            #     previous_position = current_player.get_position()
+            #     six_count = 0
+
+
 
             # for token in player_locations:
             if debug: print('here 10')
