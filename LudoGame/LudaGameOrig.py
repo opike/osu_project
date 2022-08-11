@@ -7,7 +7,7 @@ ready_to_go = ('R', 0)
 end_square = ('E', 57)
 
 
-debug = True
+debug = False
 
 # Definition of terms
 # POSITION: A,B,C, etc.
