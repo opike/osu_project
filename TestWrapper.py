@@ -1,5 +1,5 @@
 """ Test clean up script """
-from LudoGame.LudoGameF import LudoGame
+from LudoGame.LudoGame import LudoGame
 
 # from . import LudoGame
 # from .general.utils import GeneralUtils
