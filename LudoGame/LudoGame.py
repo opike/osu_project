@@ -34,8 +34,15 @@ class Player:
         # if debug: print(ord(self.__position) - 65)
         self.__pre_home_square_step_count =\
             pre_home_squares_values[ord(self.__position) - 65]
+
+        if debug: print('here 302')
+        self.print_locations()
+
         self.__post_ready_to_go_step_count =\
             post_ready_to_go_values[ord(self.__position) - 65]
+
+        if debug: print('here 303')
+        self.print_locations()
         # self.__position = The player start position (A, B, C, or D)
         # Start and end Space of the player (Hardcoded)
         # self.___step_count_of_token_p = -1
@@ -146,6 +153,7 @@ class LudoGame:
 
 
     def get_player_by_position(self, position):
+        if debug: print(f'in get_player_by_position')
         for player in self.__board:
             if player.get_position() == position:
                 return player
@@ -185,6 +193,8 @@ class LudoGame:
     def move_token(self, player, token_name, steps_to_move):
         """moves one token on the board, updates the total steps,
          kicks out other opponent's tokens and stacking """
+        if debug: print(f'in move_token')
+
 
         if token_name == 'P':
             if debug: print('here 50')
